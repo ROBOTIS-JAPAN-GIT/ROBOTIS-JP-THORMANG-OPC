@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>jp_thormang3_opc</name>
+  <version>0.0.1</version>
+  <description>
+    ROS packages for the jp_thormang3_opc (meta package)
+  </description>
+  <license>Apache 2.0</license>
+  <author email="yoshimaru@robotis.com">Yoshimaru</author>
+  <maintainer email="yoshimaru@robotis.com">Yoshimaru</maintainer>
+
+  <url type="repository">https://github.com/ROBOTIS-JAPAN-GIT/ROBOTIS-JP-THORMANG-OPC</url>
+  <url type="bugtracker">https://github.com/ROBOTIS-JAPAN-GIT/ROBOTIS-JP-THORMANG-OPC/issues</url>
+  <buildtool_depend>catkin</buildtool_depend>
+  <!-- <exec_depend>jp_thormang3_demo</exec_depend> -->
+  <exec_depend>jp_thormang3_demo</exec_depend>
+  <exec_depend>jp_thormang3_p_manager</exec_depend>
+  <export><metapackage/></export>
+</package>

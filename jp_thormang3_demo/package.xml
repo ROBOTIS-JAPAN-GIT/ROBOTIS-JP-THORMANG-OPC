@@ -1,10 +1,9 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>op3_demo</name>
+  <name>jp_thormang3_demo</name>
   <version>0.1.0</version>
   <description>
-    OP3 default demo
-    It includes three demontrations(soccer demo, vision demo, action script demo)
+    Thormang3 JP default demo
   </description>
   <license>Apache 2.0</license>
   <author email="kmjung@robotis.com">Kayman</author>
@@ -15,22 +14,9 @@
   <url type="bugtracker">https://github.com/ROBOTIS-GIT/ROBOTIS-OP3-Demo/issues</url>
   <buildtool_depend>catkin</buildtool_depend>
   <depend>roscpp</depend>
-  <depend>roslib</depend>
   <depend>std_msgs</depend>
-  <depend>sensor_msgs</depend>
-  <depend>geometry_msgs</depend>
-  <depend>robotis_controller_msgs</depend>
-  <depend>op3_walking_module_msgs</depend>
-  <depend>op3_action_module_msgs</depend>
-  <depend>cmake_modules</depend>
-  <depend>robotis_math</depend>
-  <depend>op3_ball_detector</depend>
-  <depend>boost</depend>
-  <depend>eigen</depend>
-  <depend>yaml-cpp</depend>
-  <exec_depend>op3_manager</exec_depend>
-  <exec_depend>op3_camera_setting_tool</exec_depend>
-  <exec_depend>op3_web_setting_tool</exec_depend>
+  <depend>roslib</depend>
+  <!-- <exec_depend>jp_thormang3_p_manager</exec_depend> -->
   <exec_depend>ros_madplay_player</exec_depend>
   <!-- <exec_depend>face_detection</exec_depend> -->
 </package>

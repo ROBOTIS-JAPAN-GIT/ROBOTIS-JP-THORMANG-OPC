@@ -17,10 +17,14 @@
 /* Author: Yoshimaru Tanaka */
 
 #include <ros/ros.h>
+#include <ros/package.h>
 #include <std_msgs/String.h>
+#include <std_msgs/Bool.h>
 
 void playSound(const std::string &path);
-void demoModeCommandCallback(const std_msgs::String::ConstPtr &msg);
+void thormang3CommandCallback(const std_msgs::String::ConstPtr &msg);
+void manipInitCallback(const std_msgs::String::ConstPtr &msg);
+void balanceCommandCallback(const std_msgs::Bool::ConstPtr &msg);
 
 const int SPIN_RATE = 30;
 ros::Publisher play_sound_pub;
@@ -32,9 +36,16 @@ int main(int argc, char **argv)
   ros::init(argc, argv, "demo_node");
   ros::NodeHandle nh(ros::this_node::getName());
 
-  ros::Subscriber sound_command_sub = nh.subscribe("/robotis/mode_command", 1, demoModeCommandCallback);
+  // ros::Subscriber sound_command_sub = nh.subscribe("/robotis/mode_command", 1, thormang3CommandCallback);
+  ros::Subscriber sound_command_sub = nh.subscribe("/robotis/base/ini_pose", 1, thormang3CommandCallback);
+  ros::Subscriber enable_ctrl_module_sub = nh.subscribe("/robotis/enable_ctrl_module", 1, thormang3CommandCallback);
+  ros::Subscriber move_lidar_sub = nh.subscribe("/robotis/head_control/move_lidar", 1, thormang3CommandCallback);
+  ros::Subscriber manip_init_sub = nh.subscribe("/robotis/manipulation/ini_pose_msg", 1, manipInitCallback);
+  ros::Subscriber balance_command_sub = nh.subscribe("/robotis/thormang3_foot_step_generator/balance_command", 1, balanceCommandCallback);
+
   default_mp3_path = ros::package::getPath("jp_thormang3_demo") + "/data/mp3/";
-  play_sound_pub = nh.advertise<std_msgs::String>("/play_sound_file", 0);
+  play_sound_pub = nh.advertise<std_msgs::String>("sound/play_sound_file", 0);
+  ROS_INFO("MP3 Path : %s", default_mp3_path.c_str());
 
   // ros::start();
   ros::Rate loop_rate(SPIN_RATE);
@@ -57,26 +68,35 @@ void playSound(const std::string &path)
   play_sound_pub.publish(sound_msg);
 }
 
-void demoModeCommandCallback(const std_msgs::String::ConstPtr &msg)
+void thormang3CommandCallback(const std_msgs::String::ConstPtr &msg)
 {
-  if (msg->data == "ready")
+  if (msg->data == "ini_pose")
     {
-      playSound(default_mp3_path + "Demonstration ready mode.mp3");
+      playSound(default_mp3_path + "thormang3_001_init.mp3");
     }
-  else if(msg->data == "soccer")
+  else if(msg->data == "manipulation_module")
     {
-      // play sound
-      playSound(default_mp3_path + "Start soccer demonstration.mp3");
+      playSound(default_mp3_path + "thormang3_002_manip.mp3");
     }
-  else if(msg->data == "vision")
+  else if(msg->data == "walking_module")
     {
-      // play sound
-      playSound(default_mp3_path + "Start vision processing demonstration.mp3");
+      playSound(default_mp3_path + "thormang3_003_walk.mp3");
     }
-  else if(msg->data == "action")
+  else if(msg->data == "start")
     {
-      // play sound
-      playSound(default_mp3_path + "Start motion demonstration.mp3");
+      playSound(default_mp3_path + "thormang3_004_scan.mp3");
     }
 }
 
+void manipInitCallback(const std_msgs::String::ConstPtr &msg)
+{
+  playSound(default_mp3_path + "thormang3_005_manip_ready.mp3");
+}
+
+void balanceCommandCallback(const std_msgs::Bool::ConstPtr &msg)
+{
+  if (msg->data == true)
+    {
+      playSound(default_mp3_path + "thormang3_010_auto_balancer.mp3");
+    }
+}
